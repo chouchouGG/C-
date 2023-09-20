@@ -9,7 +9,6 @@ void swap(int &a, int &b)
     b = temp;
 }
 
-
 int main(int argc, char const *argv[])
 {
     int a = 10, b = 20;
