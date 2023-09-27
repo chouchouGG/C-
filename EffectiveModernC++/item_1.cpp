@@ -1,23 +1,24 @@
 #include <iostream>
 using namespace std;
-
-/* 如果模板中形参的类型别名没有引用修饰符，那么就是按值传递， */
-template <class T>
-void f(T param)
-{
-}
+template <typename T>
+void f(const T &&param) {} // param现在是一个通用引用类型
 
 int main(int argc, char const *argv[])
 {
-  int a = 10;
-  int &ra = a;
-  const int ca = a;
-  const int &cra = a;
+  int x = 27;         // 如之前一样
+  const int cx = x;   // 如之前一样
+  const int &rx = cx; // 如之前一样
 
-  f(a);   // 实例化：void f<int>(int param)
-  f(ra);  // 实例化：void f<int>(int param)
-  f(ca);  // 实例化：void f<int>(int param)
-  f(cra); // 实例化：void f<int>(int param)
+  f(x); // x是左值，所以T是int&，
+        // param类型也是int&
 
+  f(cx); // cx是左值，所以T是const int&，
+         // param类型也是const int&
+
+  f(rx); // rx是左值，所以T是const int&，
+         // param类型也是const int&
+
+  f(27); // 27是右值，所以T是int，
+         // param类型就是int&&
   return 0;
 }
