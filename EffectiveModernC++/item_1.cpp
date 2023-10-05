@@ -1,24 +1,53 @@
+#include <thread>
+#include <shared_mutex>
+#include <string>
 #include <iostream>
-using namespace std;
-template <typename T>
-void f(const T &&param) {} // param现在是一个通用引用类型
+#include <chrono>
 
-int main(int argc, char const *argv[])
+using std::shared_lock;
+using std::shared_mutex;
+using std::string;
+using std::thread;
+using std::unique_lock;
+
+/* 以下代码，利用shared_mutex的两种所有权（共享所有权、独占所有权）来实现对计数器count的独占式读、共享式写 */
+shared_mutex _mutex_lock;
+size_t count = 0; /* 计数器 */
+
+void read(const string &thread_name)
 {
-  int x = 27;         // 如之前一样
-  const int cx = x;   // 如之前一样
-  const int &rx = cx; // 如之前一样
+  while (true)
+  {
+    {
+      shared_lock<shared_mutex> rlock{_mutex_lock}; /* 加锁 */
+      std::cout << thread_name << " read: " << count << std::endl;
+    }
+    using namespace std::chrono_literals;
+    std::this_thread::sleep_for(1s);
+  }
+}
 
-  f(x); // x是左值，所以T是int&，
-        // param类型也是int&
+void write(const string &thread_name)
+{
+  while (true)
+  {
+    {
+      unique_lock<shared_mutex> wlock{_mutex_lock}; /* 加锁 */
+      std::cout << thread_name << " write: " << ++count << std::endl;
+    }
+    using namespace std::chrono_literals;
+    std::this_thread::sleep_for(1s);
+  }
+}
 
-  f(cx); // cx是左值，所以T是const int&，
-         // param类型也是const int&
+int main()
+{
+  thread read_01(read, string("read_01"));
+  thread read_02(read, string("read_02"));
+  thread write_01(write, string("write_01"));
 
-  f(rx); // rx是左值，所以T是const int&，
-         // param类型也是const int&
-
-  f(27); // 27是右值，所以T是int，
-         // param类型就是int&&
+  read_01.join();
+  read_02.join();
+  write_01.join();
   return 0;
 }
