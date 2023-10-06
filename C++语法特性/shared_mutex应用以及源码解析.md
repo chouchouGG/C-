@@ -2,7 +2,52 @@
 C++标准库中，利用`RAII`思想实现了两种对互斥锁的包装器`unique_lock`和`shared_lock`。
 `shared_lock`是以共享的方式来进行加锁，当共享互斥量（`shared_mutex`）没有被其他线程持有或者被其他线程以共享的方式持有时，则该线程可以以共享的方式立即获取到这把锁（对这把锁进行共享式上锁）。
 
-shared_lock源码节选:
+## shared_mutex的使用
+```C++
+/* 以下代码，利用shared_mutex的两种所有权（共享所有权、独占所有权）来实现对计数器count的独占式写、共享式读 */
+shared_mutex _mutex_lock;
+size_t count = 0; /* 计数器 */
+
+void read(const string &thread_name)
+{
+  while (true)
+  {
+    {
+      shared_lock<shared_mutex> rlock{_mutex_lock}; /* 加锁 */
+      std::cout << thread_name << " read: " << count << std::endl;
+    }
+    using namespace std::chrono_literals;
+    std::this_thread::sleep_for(1s);
+  }
+}
+
+void write(const string &thread_name)
+{
+  while (true)
+  {
+    {
+      unique_lock<shared_mutex> wlock{_mutex_lock}; /* 加锁 */
+      std::cout << thread_name << " write: " << ++count << std::endl;
+    }
+    using namespace std::chrono_literals;
+    std::this_thread::sleep_for(1s);
+  }
+}
+
+int main()
+{
+  thread read_01(read, string("read_01"));
+  thread read_02(read, string("read_02"));
+  thread write_01(write, string("write_01"));
+
+  read_01.join();
+  read_02.join();
+  write_01.join();
+  return 0;
+}
+```
+
+## shared_lock源码节选
 ```C++
 template <class _Mutex>
 class shared_lock
