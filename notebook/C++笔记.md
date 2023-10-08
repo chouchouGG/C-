@@ -1,7 +1,3 @@
-# 特殊成员函数的隐式申明
-![Alt text](./C++笔记.assets/Specila%20Member.png)
-***
-
 # VSCode环境配置
 [VSCode配置C/C++环境_知乎](https://zhuanlan.zhihu.com/p/87864677)
 [VSCode环境配置_bilibili](https://www.bilibili.com/video/BV19c411G7ey/?spm_id_from=333.337.search-card.all.click&vd_source=375df3dae169e9bfb057f61a4a79a3da)

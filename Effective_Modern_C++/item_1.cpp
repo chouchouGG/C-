@@ -1,42 +1,17 @@
-#include <iostream>
-#include <memory>
-#include <vector>
-
-template <class T>
-class Animal
-{
-public:
-  void SayHello()
-  {
-    static_cast<T *>(this)->SayHello();
-  }
-  std::weak_ptr<std::vector<int>> vec;
-};
-
-class Dog : public Animal<Dog>
-{
-public:
-  void SayHello()
-  {
-    std::cout << "wang! wang!" << std::endl;
-  }
-};
-
-class Cat : public Animal<Cat>
-{
-public:
-  void SayHello()
-  {
-    std::cout << "miao! miao!" << std::endl;
-  }
-};
-
 int main()
 {
-  Dog dog;
-  Cat cat;
+  // auto pp = new Point();
 
-  dog.SayHello();
-  cat.SayHello();
-  return 0;
+  auto pp = new Point[2]();
+  {
+    // 以下代码(需要在windows x64系统下执行)：
+    cout << "pp = " << (void *)pp << endl;
+    void *psz = (size_t *)pp - 1; // psz指向存放堆空间数组大小的存放位置
+    cout << "psz = " << (void *)psz << endl;
+    cout << "sz = " << *(long long *)psz << endl;
+  }
+  pp[0].print();
+  pp[1] = Point(3, 4);
+  pp[1].print();
+  delete[] pp;
 }
