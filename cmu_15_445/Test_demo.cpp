@@ -4,8 +4,79 @@
 #include <string>
 #include <random>
 #include <memory>
+#include <stdio.h>
+#include <list>
+#include <algorithm>
+#include <functional>
 
 using namespace std;
+
+/* 测试迭代器的操作 */
+#if 0
+int main()
+{
+  vector<int> v{3, 1, 4, 8};
+  auto it = v.begin();
+  std::advance(it, 2);
+  cout << *it << '\n';
+  it = std::prev(it);
+  cout << *it << '\n';
+  it = std::prev(it);
+  cout << *it << '\n';
+  it = std::next(it);
+  cout << *it << '\n';
+}
+#endif
+
+/* 测试std::hash的使用 */
+#if 0
+int main()
+{
+  std::hash<int> hash_int;
+  cout << hash_int(100) << endl;
+  cout << hash_int(10) << endl;
+  cout << hash_int(90) << endl;
+  
+  std::hash<string> hash_str;
+  cout << hash_str("asdf") << endl;
+  cout << hash_str("asd") << endl;
+  cout << hash_str("asd") << endl;
+}
+#endif
+
+/* 测试std::list容器的remove和remove_if */
+#if 0
+int main()
+{
+    std::list<int> list_ = { 1, 100, 2, 3, 10, 1, 11, -1, 12 };
+ 
+    list_.remove(1); // remove both elements equal to 1
+    std::for_each(list_.begin(), list_.end(), [](auto & elem){
+      std::cout << elem << " ";
+    });
+    std::cout << '\n';
+    
+
+    list_.remove_if([](int n){
+      return n > 10; 
+    }); // remove all elements greater than 10
+    std::for_each(list_.begin(), list_.end(), [](auto & elem){
+      std::cout << elem << " ";
+    });
+    std::cout << '\n';
+}
+#endif
+
+/* test_5 : 测试浮点数的精度问题 */
+#if 0
+int main()
+{
+  float x = 0.1;
+  float y = 0.2;
+  printf("x+y = %.20f\n", x + y);
+  printf("0.3 = %.20f\n", 0.3);
+}
+#endif
 
 /* test_4 : &this->ch_和&(this->i_)有没有区别*/
 #if 0
