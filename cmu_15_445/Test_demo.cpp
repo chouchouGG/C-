@@ -8,8 +8,35 @@
 #include <list>
 #include <algorithm>
 #include <functional>
+#include <cassert>
 
 using namespace std;
+
+/* 测试size_t的最大值 */
+#if 1
+int main()
+{
+  size_t pid = -1;
+  unsigned int a = -1;
+  unsigned short int b = -1;
+  cout << pid << endl;
+  cout << a << endl;
+  cout << b << endl;
+  return 0;
+}
+#endif
+
+/* 测试assert的条件 */
+#if 0
+#define BUSTUB_ASSERT(expr, message) assert((expr) && (message))
+int main() {
+  // bool i = true;
+  bool i = false;
+  BUSTUB_ASSERT(i, "ERROR");
+  cout << "well done!\n";
+  return 0;
+}
+#endif
 
 /* 测试迭代器的操作 */
 #if 0
