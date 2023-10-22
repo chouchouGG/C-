@@ -35,7 +35,7 @@
 
 namespace bustub
 {
-
+ // 自己添加的LRU-K节点类
   struct LRUKNode
   {
     std::list<size_t> timestamps_; // 历史时间戳的记录

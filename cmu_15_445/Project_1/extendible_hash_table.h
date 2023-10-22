@@ -15,6 +15,14 @@
  * Implementation of in-memory hash table using extendible hashing
  */
 
+/* ==================================================================
+ * ------------------------------------------------------------------
+ * 代码只是截取自己实现的部分，没有包含其他头文件，所以打开该开关后会有报错
+ * ------------------------------------------------------------------
+ * ==================================================================
+ */
+#if 0
+
 #pragma once
 
 #include <list>
@@ -23,7 +31,7 @@
 #include <utility>
 #include <vector>
 
-// #include "container/hash/hash_table.h"
+#include "container/hash/hash_table.h"
 
 namespace bustub
 {
@@ -202,3 +210,5 @@ namespace bustub
   };
 
 } // namespace bustub
+
+#endif

@@ -9,11 +9,31 @@
 #include <algorithm>
 #include <functional>
 #include <cassert>
+#include <chrono>
 
 using namespace std;
 
-/* 测试size_t的最大值 */
-#if 1
+std::ostream &operator<<(std::ostream &ostr, const std::list<int> &list)
+{
+  for (auto &i : list)
+  {
+    ostr << " " << i;
+  }
+  return ostr;
+}
+
+/* 测试算法库中的std::move函数 */
+#if 0
+int main(int argc, char const *argv[])
+{
+  
+  return 0;
+}
+
+#endif
+
+/* 测试给无符号整数赋值-1的结果 */
+#if 0
 int main()
 {
   size_t pid = -1;

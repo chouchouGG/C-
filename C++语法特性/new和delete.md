@@ -4,6 +4,13 @@
 3. [C++ 中 new 操作符内幕：new operator、operator new、placement new](https://www.cnblogs.com/slgkaifa/p/6887887.html)
 
 
+# new运算符
+`new`运算符(`new operator`)可以分解为两部，即先调用`new`操作符(`operator new`)申请内存，再调用`placement new`来初始化对象。
+
+## 什么时候需要用到`operator new`和`placement new`?
+
+如果我们需要把对象的内存分配操作和对象的初始化操作分离开来，就需要用到`operator new` 和`placement new`。某些情况下，你有一些已经被分配但尚未处理的内存，需要在这些内存中构造一个对象，此时就需要使用 `placement new`。
+
 # 举例
 ```C++ {.line-numbers}
 class Point

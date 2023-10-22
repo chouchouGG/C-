@@ -23,3 +23,21 @@ int main()
     std::cout << '\n';
 }
 ```
+
+# 3. splice函数
+```C++ 
+void splice(const_iterator pos, list &other); // (1)
+
+void splice(const_iterator pos, list &other, const_iterator it); //(2)
+
+void splice(const_iterator pos, list &other,
+            const_iterator first, const_iterator last); // (3)
+```
+splice有三个函数原型：
+必须包含两个参数，一个目标位置`pos` ，一个源数据的`list`链表
+
+1)将`other`的所有元素转移到`pos`。
+
+2)将`other`中`it`指向的节点转移到`pos`指向的位置。
+
+3)将`other`中`[first, last]`范围内的节点转移到`pos`。
